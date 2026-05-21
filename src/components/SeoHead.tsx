@@ -3,7 +3,7 @@ import { site } from '../config/site';
 
 export function SeoHead() {
   const url = site.url.replace(/\/$/, '');
-  const ogImage = `${url}/images/seo/og-neonet.webp`;
+  const ogImage = `${url}${site.seo.ogImagePath}`;
 
   const jsonLd = {
     '@context': 'https://schema.org',
@@ -11,6 +11,7 @@ export function SeoHead() {
     name: site.name,
     url,
     description: site.seo.description,
+    image: ogImage,
     contactPoint: {
       '@type': 'ContactPoint',
       telephone: site.phone,
@@ -30,12 +31,16 @@ export function SeoHead() {
       <html lang="ru" />
       <title>{site.seo.title}</title>
       <meta name="description" content={site.seo.description} />
-      <link rel="canonical" href={url} />
+      <link rel="canonical" href={`${url}/`} />
       <meta property="og:type" content="website" />
-      <meta property="og:url" content={url} />
+      <meta property="og:site_name" content={site.seo.siteName} />
+      <meta property="og:url" content={`${url}/`} />
       <meta property="og:title" content={site.seo.title} />
       <meta property="og:description" content={site.seo.description} />
       <meta property="og:image" content={ogImage} />
+      <meta property="og:image:secure_url" content={ogImage} />
+      <meta property="og:image:width" content={String(site.seo.ogImageWidth)} />
+      <meta property="og:image:height" content={String(site.seo.ogImageHeight)} />
       <meta property="og:locale" content="ru_RU" />
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content={site.seo.title} />

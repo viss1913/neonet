@@ -5,8 +5,12 @@ import react from '@vitejs/plugin-react';
 import tailwindcss from '@tailwindcss/vite';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-/** Локально в Fabric Sites: ../../.env. На Vercel / в клоне neonet: .env в корне репо */
 const envDirs = [__dirname, path.resolve(__dirname, '../..')];
+
+const DEFAULT_SITE_URL = 'https://neonet-six.vercel.app';
+const OG_TITLE = 'NeoNet — безопасный импорт и экспорт для российского бизнеса';
+const OG_DESCRIPTION =
+  'Международная инфраструктура ВЭД: платежи, логистика, правовая структура и контроль рисков под ключ.';
 
 function loadMergedEnv(mode: string): Record<string, string> {
   const merged: Record<string, string> = {};
@@ -14,6 +18,28 @@ function loadMergedEnv(mode: string): Record<string, string> {
     Object.assign(merged, loadEnv(mode, dir, ''));
   }
   return merged;
+}
+
+function resolveSiteUrl(mode: string, env: Record<string, string>): string {
+  const fromEnv = env.VITE_SITE_URL?.trim();
+  if (fromEnv) return fromEnv.replace(/\/$/, '');
+  return mode === 'production' ? DEFAULT_SITE_URL : 'http://localhost:5173';
+}
+
+function socialMetaPlugin(mode: string, env: Record<string, string>): Plugin {
+  const siteUrl = resolveSiteUrl(mode, env);
+  const ogImage = `${siteUrl}/images/seo/og-share.jpg`;
+
+  return {
+    name: 'social-meta-inject',
+    transformIndexHtml(html) {
+      return html
+        .replaceAll('__SITE_URL__', siteUrl)
+        .replaceAll('__OG_TITLE__', OG_TITLE)
+        .replaceAll('__OG_DESCRIPTION__', OG_DESCRIPTION)
+        .replaceAll('__OG_IMAGE__', ogImage);
+    },
+  };
 }
 
 function chatDevProxy(env: Record<string, string>): Plugin {
@@ -33,7 +59,7 @@ function chatDevProxy(env: Record<string, string>): Plugin {
           res.end(
             JSON.stringify({
               error:
-                'Чат не настроен. Заполни PARTNER_RUNTIME_API_URL и PARTNER_RUNTIME_API_KEY в .env (sites/neo-net или Fabric Sites/)',
+                'Чат не настроен. Заполни PARTNER_RUNTIME_API_URL и PARTNER_RUNTIME_API_KEY в .env',
             }),
           );
           return;
@@ -70,6 +96,6 @@ export default defineConfig(({ mode }) => {
   const env = loadMergedEnv(mode);
   return {
     envDir: __dirname,
-    plugins: [react(), tailwindcss(), chatDevProxy(env)],
+    plugins: [react(), tailwindcss(), socialMetaPlugin(mode, env), chatDevProxy(env)],
   };
 });

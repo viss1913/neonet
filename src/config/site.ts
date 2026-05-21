@@ -1,7 +1,7 @@
 export const site = {
   name: 'NeoNet',
   tagline: 'Your key to Russian-area market',
-  url: import.meta.env.VITE_SITE_URL || 'https://neonet.example.ru',
+  url: import.meta.env.VITE_SITE_URL || 'https://neonet-six.vercel.app',
 
   phone: '+7 (800) 000-00-00',
   phoneHref: 'tel:+78000000000',
@@ -12,6 +12,10 @@ export const site = {
     title: 'NeoNet — безопасный импорт и экспорт для российского бизнеса',
     description:
       'Международная инфраструктура ВЭД: платежи, логистика, правовая структура и контроль рисков под ключ.',
+    ogImagePath: '/images/seo/og-share.jpg',
+    ogImageWidth: 1200,
+    ogImageHeight: 630,
+    siteName: 'NeoNet',
   },
 
   nav: [

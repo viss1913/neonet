@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://your-neonet-domain.ru/sitemap.xml
+Sitemap: https://neonet-six.vercel.app/sitemap.xml
