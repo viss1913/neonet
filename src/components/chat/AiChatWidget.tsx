@@ -3,12 +3,12 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { site } from '../../config/site';
 import { useChatUI } from '../../context/ChatContext';
 import { useChat } from '../../hooks/useChat';
+import { ChatAvatar } from './ChatAvatar';
 
 export function AiChatWidget() {
   const { open, setOpen, pendingMessage, clearPending } = useChatUI();
   const { messages, loading, send } = useChat();
   const [input, setInput] = useState('');
-  const [avatarOk, setAvatarOk] = useState(true);
   const bottomRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -36,23 +36,12 @@ export function AiChatWidget() {
             initial={{ opacity: 0, y: 16, scale: 0.96 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 16, scale: 0.96 }}
-            className="fixed bottom-24 right-4 z-50 flex h-[min(520px,80vh)] w-[min(400px,calc(100vw-2rem))] flex-col overflow-hidden rounded-2xl border border-primary/20 bg-white shadow-2xl"
+            className="fixed bottom-24 right-4 z-[100] flex h-[min(520px,80vh)] w-[min(400px,calc(100vw-2rem))] flex-col overflow-hidden rounded-2xl border border-primary/20 bg-white shadow-2xl"
             role="dialog"
             aria-label={site.chat.title}
           >
             <header className="flex items-center gap-3 border-b border-black/5 bg-bg-light px-4 py-3">
-              {avatarOk ? (
-                <img
-                  src={site.chat.avatar}
-                  alt=""
-                  className="h-10 w-10 rounded-full object-cover ring-2 ring-primary/30"
-                  onError={() => setAvatarOk(false)}
-                />
-              ) : (
-                <span className="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-sm text-white">
-                  🔑
-                </span>
-              )}
+              <ChatAvatar size="md" />
               <div className="flex-1">
                 <p className="font-bold text-text">{site.chat.title}</p>
                 <p className="text-xs text-text-muted">NeoNet · онлайн</p>
@@ -69,19 +58,27 @@ export function AiChatWidget() {
 
             <div className="flex-1 overflow-y-auto px-4 py-3">
               {messages.length === 0 && (
-                <p className="text-sm text-text-muted">{site.chat.greeting}</p>
+                <div className="flex gap-3">
+                  <ChatAvatar size="sm" />
+                  <p className="text-sm text-text-muted">{site.chat.greeting}</p>
+                </div>
               )}
-              <ul className="mt-3 space-y-3">
+              <ul className="mt-3 space-y-4">
                 {messages.map((m, i) => (
                   <li
                     key={`${i}-${m.role}`}
-                    className={`max-w-[90%] rounded-xl px-3 py-2 text-sm ${
-                      m.role === 'user'
-                        ? 'ml-auto bg-primary text-white'
-                        : 'bg-bg-muted text-text'
-                    }`}
+                    className={`flex gap-2 ${m.role === 'user' ? 'flex-row-reverse' : ''}`}
                   >
-                    {m.content}
+                    {m.role === 'assistant' && <ChatAvatar size="sm" />}
+                    <span
+                      className={`max-w-[85%] rounded-xl px-3 py-2 text-sm ${
+                        m.role === 'user'
+                          ? 'bg-primary text-white'
+                          : 'bg-bg-muted text-text'
+                      }`}
+                    >
+                      {m.content}
+                    </span>
                   </li>
                 ))}
               </ul>
@@ -130,22 +127,12 @@ export function AiChatWidget() {
       <button
         type="button"
         onClick={() => setOpen(!open)}
-        className="fixed bottom-4 right-4 z-50 flex items-center gap-2 rounded-full bg-primary pl-2 pr-4 py-2 text-white shadow-lg shadow-primary/40 hover:bg-primary-dark transition"
+        className="fixed bottom-4 right-4 z-[100] flex items-center gap-3 rounded-full bg-primary py-1.5 pl-1.5 pr-5 text-white shadow-lg shadow-primary/40 hover:bg-primary-dark transition"
         aria-expanded={open}
+        aria-label={site.chat.title}
       >
-        {avatarOk ? (
-          <img
-            src={site.chat.avatar}
-            alt=""
-            className="h-10 w-10 rounded-full object-cover ring-2 ring-white/30"
-            onError={() => setAvatarOk(false)}
-          />
-        ) : (
-          <span className="flex h-10 w-10 items-center justify-center rounded-full bg-white/20 text-lg">
-            🔑
-          </span>
-        )}
-        <span className="hidden text-sm font-semibold sm:inline">{site.chat.title}</span>
+        <ChatAvatar size="lg" ring="white" />
+        <span className="text-sm font-semibold">{site.chat.title}</span>
       </button>
     </>
   );
