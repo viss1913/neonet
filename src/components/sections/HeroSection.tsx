@@ -18,7 +18,7 @@ export function HeroSection() {
       />
       <div className="absolute inset-0 bg-gradient-to-r from-[#0a1a2f]/95 via-[#0a1a2f]/75 to-[#0a1a2f]/25" />
 
-      <div className="relative mx-auto grid max-w-6xl gap-10 px-4 py-20 md:grid-cols-2 md:items-center md:px-6 md:py-28">
+      <div className="relative mx-auto max-w-3xl px-4 py-20 md:px-6 md:py-28">
         <div>
           <p className="mb-4 text-sm font-medium uppercase tracking-wider text-primary">
             {site.hero.eyebrow}
@@ -46,34 +46,6 @@ export function HeroSection() {
               </li>
             ))}
           </ul>
-        </div>
-
-        <div className="relative hidden min-h-[320px] md:block">
-          {site.hero.showKeyOverlay && (
-            <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
-              <img
-                src={site.hero.keyImage}
-                alt=""
-                className="max-h-[420px] w-auto object-contain drop-shadow-[0_0_60px_rgba(81,143,198,0.5)]"
-                onError={(e) => {
-                  (e.target as HTMLImageElement).style.display = 'none';
-                }}
-              />
-            </div>
-          )}
-          <div className="relative ml-auto grid max-w-sm grid-cols-2 gap-3">
-            {['Платежи', 'Логистика', 'Таможня', 'Риски'].map((label, i) => (
-              <div
-                key={label}
-                className="rounded-xl border border-white/15 bg-white/5 p-4 backdrop-blur-md"
-              >
-                <p className="text-xs text-white/50">{label}</p>
-                <p className="mt-2 text-lg font-semibold text-primary">
-                  {['+12%', 'В пути', 'OK', '−8%'][i]}
-                </p>
-              </div>
-            ))}
-          </div>
         </div>
       </div>
     </section>
