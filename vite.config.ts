@@ -31,7 +31,8 @@ function resolveSiteUrlForOg(env: Record<string, string>): string {
 
 function socialMetaPlugin(env: Record<string, string>): Plugin {
   const siteUrl = resolveSiteUrlForOg(env);
-  const ogImage = `${siteUrl}/images/seo/og-share.jpg`;
+  /** ?v= сбрасывает кэш превью в Telegram / WhatsApp после обновления картинки */
+  const ogImage = `${siteUrl}/images/seo/og-share.jpg?v=2`;
 
   return {
     name: 'social-meta-inject',

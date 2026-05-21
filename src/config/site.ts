@@ -12,9 +12,10 @@ export const site = {
     title: 'NeoNet — безопасный импорт и экспорт для российского бизнеса',
     description:
       'Международная инфраструктура ВЭД: платежи, логистика, правовая структура и контроль рисков под ключ.',
-    ogImagePath: '/images/seo/og-share.jpg',
+    ogImagePath: '/images/seo/og-share.jpg?v=2',
     ogImageWidth: 1200,
     ogImageHeight: 630,
+    ogImageAlt: 'NeoNet — международная инфраструктура ВЭД',
     siteName: 'NeoNet',
   },
 
@@ -92,6 +93,13 @@ export const site = {
       { n: '03', title: 'Управление под ключ', text: 'Операционное сопровождение поставок и контроль KPI.' },
     ],
     videoTitle: 'Как мы организуем поставки',
+    /** Локальный файл (~15 МБ) — только для dev, в git не кладём */
+    videoSrc: '/video/process-hero.mp4',
+    /**
+     * Rutube: вставь ID или полную ссылку после загрузки, например:
+     * https://rutube.ru/video/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx/
+     */
+    rutubeVideoId: '',
     videoPoster: '/images/hero/process-video-poster.webp',
   },
 

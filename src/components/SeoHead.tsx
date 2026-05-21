@@ -41,7 +41,9 @@ export function SeoHead() {
       <meta property="og:image:secure_url" content={ogImage} />
       <meta property="og:image:width" content={String(site.seo.ogImageWidth)} />
       <meta property="og:image:height" content={String(site.seo.ogImageHeight)} />
+      <meta property="og:image:alt" content={site.seo.ogImageAlt} />
       <meta property="og:locale" content="ru_RU" />
+      <link rel="image_src" href={ogImage} />
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content={site.seo.title} />
       <meta name="twitter:description" content={site.seo.description} />
