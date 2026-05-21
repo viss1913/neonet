@@ -20,12 +20,6 @@ function loadMergedEnv(mode: string): Record<string, string> {
   return merged;
 }
 
-function resolveSiteUrl(mode: string, env: Record<string, string>): string {
-  const fromEnv = env.VITE_SITE_URL?.trim();
-  if (fromEnv) return fromEnv.replace(/\/$/, '');
-  return mode === 'production' ? DEFAULT_SITE_URL : 'http://localhost:5173';
-}
-
 /** OG в index.html — всегда абсолютный прод-URL (Telegram не любит localhost) */
 function resolveSiteUrlForOg(env: Record<string, string>): string {
   const fromEnv = env.VITE_SITE_URL?.trim();
@@ -35,7 +29,7 @@ function resolveSiteUrlForOg(env: Record<string, string>): string {
   return DEFAULT_SITE_URL;
 }
 
-function socialMetaPlugin(mode: string, env: Record<string, string>): Plugin {
+function socialMetaPlugin(env: Record<string, string>): Plugin {
   const siteUrl = resolveSiteUrlForOg(env);
   const ogImage = `${siteUrl}/images/seo/og-share.jpg`;
 
@@ -105,6 +99,6 @@ export default defineConfig(({ mode }) => {
   const env = loadMergedEnv(mode);
   return {
     envDir: __dirname,
-    plugins: [react(), tailwindcss(), socialMetaPlugin(mode, env), chatDevProxy(env)],
+    plugins: [react(), tailwindcss(), socialMetaPlugin(env), chatDevProxy(env)],
   };
 });
