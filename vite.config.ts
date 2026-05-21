@@ -26,8 +26,17 @@ function resolveSiteUrl(mode: string, env: Record<string, string>): string {
   return mode === 'production' ? DEFAULT_SITE_URL : 'http://localhost:5173';
 }
 
+/** OG в index.html — всегда абсолютный прод-URL (Telegram не любит localhost) */
+function resolveSiteUrlForOg(env: Record<string, string>): string {
+  const fromEnv = env.VITE_SITE_URL?.trim();
+  if (fromEnv && !/localhost|127\.0\.0\.1/i.test(fromEnv)) {
+    return fromEnv.replace(/\/$/, '');
+  }
+  return DEFAULT_SITE_URL;
+}
+
 function socialMetaPlugin(mode: string, env: Record<string, string>): Plugin {
-  const siteUrl = resolveSiteUrl(mode, env);
+  const siteUrl = resolveSiteUrlForOg(env);
   const ogImage = `${siteUrl}/images/seo/og-share.jpg`;
 
   return {
