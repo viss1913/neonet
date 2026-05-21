@@ -5,8 +5,16 @@ import react from '@vitejs/plugin-react';
 import tailwindcss from '@tailwindcss/vite';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-/** .env в корне репозитория (локально и на Vercel) */
-const envDir = __dirname;
+/** Локально в Fabric Sites: ../../.env. На Vercel / в клоне neonet: .env в корне репо */
+const envDirs = [__dirname, path.resolve(__dirname, '../..')];
+
+function loadMergedEnv(mode: string): Record<string, string> {
+  const merged: Record<string, string> = {};
+  for (const dir of envDirs) {
+    Object.assign(merged, loadEnv(mode, dir, ''));
+  }
+  return merged;
+}
 
 function chatDevProxy(env: Record<string, string>): Plugin {
   return {
@@ -25,7 +33,7 @@ function chatDevProxy(env: Record<string, string>): Plugin {
           res.end(
             JSON.stringify({
               error:
-                'Чат не настроен. Заполни PARTNER_RUNTIME_API_URL и PARTNER_RUNTIME_API_KEY в Fabric Sites/.env',
+                'Чат не настроен. Заполни PARTNER_RUNTIME_API_URL и PARTNER_RUNTIME_API_KEY в .env (sites/neo-net или Fabric Sites/)',
             }),
           );
           return;
@@ -59,9 +67,9 @@ function chatDevProxy(env: Record<string, string>): Plugin {
 }
 
 export default defineConfig(({ mode }) => {
-  const env = loadEnv(mode, envDir, '');
+  const env = loadMergedEnv(mode);
   return {
-    envDir,
+    envDir: __dirname,
     plugins: [react(), tailwindcss(), chatDevProxy(env)],
   };
 });
