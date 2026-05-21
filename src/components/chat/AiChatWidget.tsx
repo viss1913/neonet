@@ -4,6 +4,7 @@ import { site } from '../../config/site';
 import { useChatUI } from '../../context/ChatContext';
 import { useChat } from '../../hooks/useChat';
 import { ChatAvatar } from './ChatAvatar';
+import { ChatTypingIndicator } from './ChatTypingIndicator';
 
 export function AiChatWidget() {
   const { open, setOpen, pendingMessage, clearPending } = useChatUI();
@@ -20,13 +21,15 @@ export function AiChatWidget() {
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [messages, open]);
+  }, [messages, loading, open]);
 
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
     void send(input);
     setInput('');
   };
+
+  const headerStatus = loading ? site.chat.typingLabel : site.chat.subtitle;
 
   return (
     <>
@@ -38,13 +41,17 @@ export function AiChatWidget() {
             exit={{ opacity: 0, y: 16, scale: 0.96 }}
             className="fixed bottom-24 right-4 z-[100] flex h-[min(520px,80vh)] w-[min(400px,calc(100vw-2rem))] flex-col overflow-hidden rounded-2xl border border-primary/20 bg-white shadow-2xl"
             role="dialog"
-            aria-label={site.chat.title}
+            aria-label={`Чат с ${site.chat.name}`}
           >
             <header className="flex items-center gap-3 border-b border-black/5 bg-bg-light px-4 py-3">
               <ChatAvatar size="md" />
-              <div className="flex-1">
+              <div className="flex-1 min-w-0">
                 <p className="font-bold text-text">{site.chat.title}</p>
-                <p className="text-xs text-text-muted">NeoNet · онлайн</p>
+                <p
+                  className={`text-xs truncate ${loading ? 'text-primary font-medium animate-pulse' : 'text-text-muted'}`}
+                >
+                  {headerStatus}
+                </p>
               </div>
               <button
                 type="button"
@@ -57,13 +64,13 @@ export function AiChatWidget() {
             </header>
 
             <div className="flex-1 overflow-y-auto px-4 py-3">
-              {messages.length === 0 && (
+              {messages.length === 0 && !loading && (
                 <div className="flex gap-3">
                   <ChatAvatar size="sm" />
                   <p className="text-sm text-text-muted">{site.chat.greeting}</p>
                 </div>
               )}
-              <ul className="mt-3 space-y-4">
+              <ul className={`space-y-4 ${messages.length > 0 || loading ? 'mt-3' : ''}`}>
                 {messages.map((m, i) => (
                   <li
                     key={`${i}-${m.role}`}
@@ -71,7 +78,7 @@ export function AiChatWidget() {
                   >
                     {m.role === 'assistant' && <ChatAvatar size="sm" />}
                     <span
-                      className={`max-w-[85%] rounded-xl px-3 py-2 text-sm ${
+                      className={`max-w-[85%] rounded-xl px-3 py-2 text-sm whitespace-pre-wrap ${
                         m.role === 'user'
                           ? 'bg-primary text-white'
                           : 'bg-bg-muted text-text'
@@ -81,11 +88,12 @@ export function AiChatWidget() {
                     </span>
                   </li>
                 ))}
+                {loading && <ChatTypingIndicator />}
               </ul>
               <div ref={bottomRef} />
             </div>
 
-            {messages.length === 0 && (
+            {messages.length === 0 && !loading && (
               <div className="flex flex-wrap gap-2 px-4 pb-2">
                 {site.chat.quickReplies.map((q) => (
                   <button
@@ -106,7 +114,7 @@ export function AiChatWidget() {
                 <input
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
-                  placeholder="Ваш вопрос…"
+                  placeholder={`Сообщение для ${site.chat.name}…`}
                   className="flex-1 rounded-lg border border-black/10 px-3 py-2 text-sm outline-none focus:border-primary"
                   disabled={loading}
                 />
@@ -129,10 +137,10 @@ export function AiChatWidget() {
         onClick={() => setOpen(!open)}
         className="fixed bottom-4 right-4 z-[100] flex items-center gap-3 rounded-full bg-primary py-1.5 pl-1.5 pr-5 text-white shadow-lg shadow-primary/40 hover:bg-primary-dark transition"
         aria-expanded={open}
-        aria-label={site.chat.title}
+        aria-label={`Открыть чат с ${site.chat.name}`}
       >
         <ChatAvatar size="lg" ring="white" />
-        <span className="text-sm font-semibold">{site.chat.title}</span>
+        <span className="text-sm font-semibold">{site.chat.name}</span>
       </button>
     </>
   );
