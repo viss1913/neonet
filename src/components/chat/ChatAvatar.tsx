@@ -1,16 +1,22 @@
 import { useState } from 'react';
 import { site } from '../../config/site';
+import { KolyaRobotSvg } from './KolyaRobotSvg';
 
-/** Робот Коля — основной аватар; webp опционально из конфига */
-const ROBOT_SRC = '/images/ai/kolya-robot.svg';
+const sizes = {
+  sm: 'h-8 w-8',
+  md: 'h-11 w-11',
+  lg: 'h-14 w-14',
+} as const;
 
-function RobotIcon({ className = '' }: { className?: string }) {
+function RobotFallback({ size, ring }: { size: keyof typeof sizes; ring: 'primary' | 'white' }) {
+  const ringClass =
+    ring === 'white' ? 'ring-2 ring-white/40' : 'ring-2 ring-primary/35';
   return (
-    <img
-      src={ROBOT_SRC}
-      alt=""
-      className={`shrink-0 rounded-full object-cover bg-bg-muted p-0.5 ${className}`}
-    />
+    <span
+      className={`${sizes[size]} ${ringClass} flex shrink-0 items-center justify-center overflow-hidden rounded-full bg-bg-muted p-1`}
+    >
+      <KolyaRobotSvg className="h-full w-full" />
+    </span>
   );
 }
 
@@ -18,30 +24,25 @@ export function ChatAvatar({
   size = 'md',
   ring = 'primary',
 }: {
-  size?: 'sm' | 'md' | 'lg';
+  size?: keyof typeof sizes;
   ring?: 'primary' | 'white';
 }) {
-  const [usePhoto, setUsePhoto] = useState(!!site.chat.avatarPhoto);
-  const photoSrc = site.chat.avatarPhoto;
+  const photoSrc = site.chat.avatar?.trim();
+  const [photoOk, setPhotoOk] = useState(!!photoSrc);
 
-  const sizes = {
-    sm: 'h-8 w-8',
-    md: 'h-11 w-11',
-    lg: 'h-14 w-14',
-  };
   const ringClass =
     ring === 'white' ? 'ring-2 ring-white/40' : 'ring-2 ring-primary/35';
 
-  if (usePhoto && photoSrc) {
+  if (photoSrc && photoOk) {
     return (
       <img
         src={photoSrc}
-        alt=""
-        className={`${sizes[size]} shrink-0 rounded-full object-cover ${ringClass} bg-primary/20`}
-        onError={() => setUsePhoto(false)}
+        alt={site.chat.name}
+        className={`${sizes[size]} shrink-0 rounded-full object-cover ${ringClass} bg-primary/10`}
+        onError={() => setPhotoOk(false)}
       />
     );
   }
 
-  return <RobotIcon className={`${sizes[size]} ${ringClass}`} />;
+  return <RobotFallback size={size} ring={ring} />;
 }
