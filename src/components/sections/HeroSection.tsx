@@ -18,8 +18,7 @@ export function HeroSection() {
       />
       <div className="absolute inset-0 bg-gradient-to-r from-[#0a1a2f]/95 via-[#0a1a2f]/75 to-[#0a1a2f]/25" />
 
-      <div className="relative mx-auto max-w-3xl px-4 py-20 md:px-6 md:py-28">
-        <div>
+      <div className="relative mx-auto w-full max-w-6xl px-4 py-20 text-left md:px-6 md:py-28">
           <p className="mb-4 text-sm font-medium uppercase tracking-wider text-primary">
             {site.hero.eyebrow}
           </p>
@@ -46,7 +45,6 @@ export function HeroSection() {
               </li>
             ))}
           </ul>
-        </div>
       </div>
     </section>
   );
