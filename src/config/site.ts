@@ -93,13 +93,10 @@ export const site = {
       { n: '03', title: 'Управление под ключ', text: 'Операционное сопровождение поставок и контроль KPI.' },
     ],
     videoTitle: 'Как мы организуем поставки',
-    /** Локальный файл (~15 МБ) — только для dev, в git не кладём */
+    /** VK / vkvideo / Rutube — на проде */
+    videoEmbedUrl: 'https://vkvideo.ru/video-238930683_456239019',
+    /** Локальный mp4 — fallback для dev, если videoEmbedUrl пустой */
     videoSrc: '/video/process-hero.mp4',
-    /**
-     * Rutube: вставь ID или полную ссылку после загрузки, например:
-     * https://rutube.ru/video/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx/
-     */
-    rutubeVideoId: '',
     videoPoster: '/images/hero/process-video-poster.webp',
   },
 

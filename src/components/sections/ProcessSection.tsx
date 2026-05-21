@@ -1,24 +1,18 @@
 import { useRef, useState } from 'react';
 import { site } from '../../config/site';
+import { resolveVideoEmbedUrl } from '../../lib/videoEmbed';
 import { Section, SectionTitle } from '../ui/Section';
-
-function rutubeEmbedUrl(idOrUrl: string): string {
-  const trimmed = idOrUrl.trim();
-  const fromUrl = trimmed.match(/rutube\.ru\/video\/([a-f0-9-]+)/i);
-  const id = fromUrl?.[1] ?? trimmed;
-  return `https://rutube.ru/play/embed/${id}/`;
-}
 
 export function ProcessSection() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [playing, setPlaying] = useState(false);
   const [embedOpen, setEmbedOpen] = useState(false);
 
-  const rutubeId = site.process.rutubeVideoId?.trim() ?? '';
-  const useRutube = Boolean(rutubeId);
+  const embedSrc = resolveVideoEmbedUrl(site.process.videoEmbedUrl ?? '');
+  const useExternal = Boolean(embedSrc);
 
   const togglePlay = () => {
-    if (useRutube) {
+    if (useExternal) {
       setEmbedOpen(true);
       return;
     }
@@ -49,19 +43,19 @@ export function ProcessSection() {
           </ol>
         </div>
         <div className="relative overflow-hidden rounded-2xl border border-white/10">
-          {useRutube && embedOpen ? (
+          {useExternal && embedOpen && embedSrc ? (
             <iframe
-              src={rutubeEmbedUrl(rutubeId)}
+              src={embedSrc}
               title={site.process.videoTitle}
               className="aspect-video w-full border-0"
-              allow="clipboard-write; autoplay"
+              allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
               allowFullScreen
             />
           ) : (
             <>
               <video
                 ref={videoRef}
-                src={useRutube ? undefined : site.process.videoSrc}
+                src={useExternal ? undefined : site.process.videoSrc}
                 poster={site.process.videoPoster}
                 className="aspect-video w-full object-cover"
                 playsInline
@@ -82,7 +76,7 @@ export function ProcessSection() {
                   </span>
                 </button>
               )}
-              {playing && !useRutube && (
+              {playing && !useExternal && (
                 <button
                   type="button"
                   onClick={togglePlay}
