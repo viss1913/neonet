@@ -135,12 +135,14 @@ export function AiChatWidget() {
       <button
         type="button"
         onClick={() => setOpen(!open)}
-        className="fixed bottom-4 right-4 z-[100] flex items-center gap-3 rounded-full bg-primary py-1.5 pl-1.5 pr-5 text-white shadow-lg shadow-primary/40 hover:bg-primary-dark transition"
+        className="fixed bottom-4 right-4 z-[100] flex max-w-[min(100vw-2rem,320px)] items-center gap-2.5 rounded-full bg-primary py-2 pl-1.5 pr-4 text-white shadow-lg shadow-primary/40 hover:bg-primary-dark transition"
         aria-expanded={open}
-        aria-label={`Открыть чат с ${site.chat.name}`}
+        aria-label={`Открыть чат: ${site.chat.fabLabel}`}
       >
         <ChatAvatar size="lg" ring="white" />
-        <span className="text-sm font-semibold">{site.chat.name}</span>
+        <span className="text-left text-xs font-semibold leading-snug sm:text-sm">
+          {site.chat.fabLabel}
+        </span>
       </button>
     </>
   );
