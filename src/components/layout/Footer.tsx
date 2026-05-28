@@ -18,7 +18,7 @@ export function Footer() {
             </a>
           </p>
         </div>
-        <nav aria-label="Footer menu">
+        <nav aria-label={site.ui.footerMenuAria}>
           <ul className="space-y-2 text-sm">
             {site.nav.map((item) => (
               <li key={item.href}>

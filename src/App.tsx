@@ -11,24 +11,27 @@ import { ProcessSection } from './components/sections/ProcessSection';
 import { ExpertSection } from './components/sections/ExpertSection';
 import { FinalCtaSection } from './components/sections/FinalCtaSection';
 import { AiChatWidget } from './components/chat/AiChatWidget';
+import { LocaleProvider } from './context/LocaleContext';
 
 export default function App() {
   return (
-    <ChatProvider>
-      <SeoHead />
-      <Header />
-      <main>
-        <HeroSection />
-        <TrustSection />
-        <RisksSection />
-        <ControlSection />
-        <ArchitectureSection />
-        <ProcessSection />
-        <ExpertSection />
-        <FinalCtaSection />
-      </main>
-      <Footer />
-      <AiChatWidget />
-    </ChatProvider>
+    <LocaleProvider>
+      <ChatProvider>
+        <SeoHead />
+        <Header />
+        <main>
+          <HeroSection />
+          <TrustSection />
+          <RisksSection />
+          <ControlSection />
+          <ArchitectureSection />
+          <ProcessSection />
+          <ExpertSection />
+          <FinalCtaSection />
+        </main>
+        <Footer />
+        <AiChatWidget />
+      </ChatProvider>
+    </LocaleProvider>
   );
 }

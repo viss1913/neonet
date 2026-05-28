@@ -1,4 +1,5 @@
 import { useCallback, useState } from 'react';
+import { getSiteLanguage } from '../config/site';
 
 const STORAGE_KEY = 'neonet_chat_user_id';
 
@@ -39,21 +40,30 @@ export function useChat() {
       const data = await res.json().catch(() => ({}));
 
       if (!res.ok) {
+        const isRu = getSiteLanguage() === 'ru';
         throw new Error(
           typeof data.error === 'string'
             ? data.error
             : res.status === 401
-              ? 'Consultant service is temporarily unavailable (API key).'
-              : 'Unable to get a response. Please try again later.',
+              ? isRu
+                ? 'Сервис консультанта временно недоступен (ключ API).'
+                : 'Consultant service is temporarily unavailable (API key).'
+              : isRu
+                ? 'Не удалось получить ответ. Попробуйте позже.'
+                : 'Unable to get a response. Please try again later.',
         );
       }
 
       const reply = data.reply as string;
       setMessages((m) => [...m, { role: 'assistant', content: reply || '…' }]);
     } catch (e) {
-      const msg = e instanceof Error ? e.message : 'Network error';
+      const isRu = getSiteLanguage() === 'ru';
+      const msg = e instanceof Error ? e.message : isRu ? 'Ошибка сети' : 'Network error';
       setError(msg);
-      setMessages((m) => [...m, { role: 'assistant', content: `Sorry, service connection failed: ${msg}` }]);
+      setMessages((m) => [
+        ...m,
+        { role: 'assistant', content: isRu ? `Извините, не удалось связаться с сервисом: ${msg}` : `Sorry, service connection failed: ${msg}` },
+      ]);
     } finally {
       setLoading(false);
     }

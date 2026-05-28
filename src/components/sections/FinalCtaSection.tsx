@@ -17,26 +17,31 @@ export function FinalCtaSection() {
             e.preventDefault();
             const fd = new FormData(e.currentTarget);
             const name = String(fd.get('name') || '').trim();
+            const phone = String(fd.get('phone') || '');
+            const message = String(fd.get('message') || site.finalCta.hiddenMessage);
             openWithMessage(
               name
-                ? `Website request. Name: ${name}. Phone: ${fd.get('phone')}. Request: ${fd.get('message') || 'initial strategic assessment'}`
-                : 'I want an operational assessment',
+                ? site.finalCta.requestWithNameTemplate
+                    .replace('{{name}}', name)
+                    .replace('{{phone}}', phone)
+                    .replace('{{message}}', message)
+                : site.finalCta.requestFallback,
             );
           }}
         >
           <input
             name="name"
             type="text"
-            placeholder="Your name"
+            placeholder={site.finalCta.namePlaceholder}
             className="rounded-lg border border-white/20 bg-white/10 px-4 py-2.5 text-white placeholder:text-white/40"
           />
           <input
             name="phone"
             type="tel"
-            placeholder="Phone"
+            placeholder={site.finalCta.phonePlaceholder}
             className="rounded-lg border border-white/20 bg-white/10 px-4 py-2.5 text-white placeholder:text-white/40"
           />
-          <input name="message" type="hidden" value="initial strategic assessment" />
+          <input name="message" type="hidden" value={site.finalCta.hiddenMessage} />
           <Button type="submit">{site.hero.ctaPrimary}</Button>
         </form>
         <div className="mt-6 flex justify-center gap-4 text-sm">

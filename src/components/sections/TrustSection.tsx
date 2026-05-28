@@ -30,7 +30,7 @@ export function TrustSection() {
           ))}
         </div>
         <p className="mt-6 text-center text-sm text-text-muted/70">
-          Authorized Partner of Russian Export Center. Active member of ABP FEA.
+          {site.trustLead}
         </p>
       </div>
     </section>

@@ -27,12 +27,12 @@ export function HeroSection() {
           </h1>
           <p className="mt-6 max-w-xl text-lg text-white/75">{site.hero.lead}</p>
           <div className="mt-8 flex flex-wrap gap-4">
-            <Button onClick={() => openWithMessage('I want an operational assessment')}>
+            <Button onClick={() => openWithMessage(site.finalCta.requestFallback)}>
               {site.hero.ctaPrimary} →
             </Button>
             <Button
               variant="secondary"
-              onClick={() => openWithMessage('I want to discuss my import/export project')}
+              onClick={() => openWithMessage(site.hero.ctaSecondary)}
             >
               {site.hero.ctaSecondary}
             </Button>

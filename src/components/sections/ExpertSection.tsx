@@ -22,18 +22,18 @@ export function ExpertSection() {
           ) : (
             <div
               className="flex aspect-[3/4] w-full items-center justify-center rounded-2xl bg-slate-brand/20 text-text-muted"
-              aria-label="Photo will be added soon"
+              aria-label={site.expert.photoFallbackAria}
             >
               <span className="text-center text-sm px-6">
-                Photo of {site.expert.name}
+                {site.expert.photoFallbackAria}: {site.expert.name}
                 <br />
-                <span className="text-xs">add expert-raisa.webp to Neo_Net/assets/people/</span>
+                <span className="text-xs">{site.expert.photoFallbackHint}</span>
               </span>
             </div>
           )}
         </div>
         <div>
-          <SectionTitle>Expert leadership you can rely on</SectionTitle>
+          <SectionTitle>{site.expert.sectionTitle}</SectionTitle>
           <p className="mt-2 text-lg font-semibold text-primary">{site.expert.name}</p>
           <p className="text-text-muted">{site.expert.role}</p>
           <ul className="mt-6 list-disc space-y-2 pl-5 text-text-muted">
@@ -57,8 +57,8 @@ export function ExpertSection() {
                 Telegram
               </a>
             </p>
-            <Button className="mt-4" onClick={() => openWithMessage('I want to contact NeoNet')}>
-              Contact us
+            <Button className="mt-4" onClick={() => openWithMessage(site.finalCta.requestFallback)}>
+              {site.expert.contactCta}
             </Button>
           </div>
         </div>

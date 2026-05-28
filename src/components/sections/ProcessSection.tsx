@@ -69,7 +69,7 @@ export function ProcessSection() {
                   type="button"
                   onClick={togglePlay}
                   className="absolute inset-0 flex cursor-pointer items-center justify-center bg-black/30 transition hover:bg-black/40"
-                  aria-label="Play video"
+                  aria-label={site.ui.playVideoAria}
                 >
                   <span className="flex h-16 w-16 items-center justify-center rounded-full bg-primary text-white shadow-xl">
                     ▶
@@ -81,7 +81,7 @@ export function ProcessSection() {
                   type="button"
                   onClick={togglePlay}
                   className="absolute inset-0 cursor-pointer"
-                  aria-label="Pause"
+                  aria-label={site.ui.pauseVideoAria}
                 />
               )}
             </>
