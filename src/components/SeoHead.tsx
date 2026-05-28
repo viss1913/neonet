@@ -17,7 +17,7 @@ export function SeoHead() {
       telephone: site.phone,
       contactType: 'customer service',
       areaServed: 'RU',
-      availableLanguage: 'Russian',
+      availableLanguage: 'English',
     },
     address: {
       '@type': 'PostalAddress',
@@ -28,7 +28,7 @@ export function SeoHead() {
 
   return (
     <Helmet>
-      <html lang="ru" />
+      <html lang="en" />
       <title>{site.seo.title}</title>
       <meta name="description" content={site.seo.description} />
       <link rel="canonical" href={`${url}/`} />
@@ -42,7 +42,7 @@ export function SeoHead() {
       <meta property="og:image:width" content={String(site.seo.ogImageWidth)} />
       <meta property="og:image:height" content={String(site.seo.ogImageHeight)} />
       <meta property="og:image:alt" content={site.seo.ogImageAlt} />
-      <meta property="og:locale" content="ru_RU" />
+      <meta property="og:locale" content="en_US" />
       <link rel="image_src" href={ogImage} />
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content={site.seo.title} />

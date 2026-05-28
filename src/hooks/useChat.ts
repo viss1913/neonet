@@ -43,17 +43,17 @@ export function useChat() {
           typeof data.error === 'string'
             ? data.error
             : res.status === 401
-              ? 'Сервис консультанта временно недоступен (ключ API).'
-              : 'Не удалось получить ответ. Попробуйте позже.',
+              ? 'Consultant service is temporarily unavailable (API key).'
+              : 'Unable to get a response. Please try again later.',
         );
       }
 
       const reply = data.reply as string;
       setMessages((m) => [...m, { role: 'assistant', content: reply || '…' }]);
     } catch (e) {
-      const msg = e instanceof Error ? e.message : 'Ошибка сети';
+      const msg = e instanceof Error ? e.message : 'Network error';
       setError(msg);
-      setMessages((m) => [...m, { role: 'assistant', content: `Извините, не удалось связаться с сервисом: ${msg}` }]);
+      setMessages((m) => [...m, { role: 'assistant', content: `Sorry, service connection failed: ${msg}` }]);
     } finally {
       setLoading(false);
     }

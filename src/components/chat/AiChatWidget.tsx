@@ -41,7 +41,7 @@ export function AiChatWidget() {
             exit={{ opacity: 0, y: 16, scale: 0.96 }}
             className="fixed bottom-24 right-4 z-[100] flex h-[min(520px,80vh)] w-[min(400px,calc(100vw-2rem))] flex-col overflow-hidden rounded-2xl border border-primary/20 bg-white shadow-2xl"
             role="dialog"
-            aria-label={`Чат с ${site.chat.name}`}
+            aria-label={`Chat with ${site.chat.name}`}
           >
             <header className="flex items-center gap-3 border-b border-black/5 bg-bg-light px-4 py-3">
               <ChatAvatar size="md" />
@@ -57,7 +57,7 @@ export function AiChatWidget() {
                 type="button"
                 onClick={() => setOpen(false)}
                 className="rounded-lg p-2 text-text-muted hover:bg-black/5"
-                aria-label="Закрыть чат"
+                aria-label="Close chat"
               >
                 ✕
               </button>
@@ -114,7 +114,7 @@ export function AiChatWidget() {
                 <input
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
-                  placeholder={`Сообщение для ${site.chat.name}…`}
+                  placeholder={`Message for ${site.chat.name}...`}
                   className="flex-1 rounded-lg border border-black/10 px-3 py-2 text-sm outline-none focus:border-primary"
                   disabled={loading}
                 />
@@ -137,7 +137,7 @@ export function AiChatWidget() {
         onClick={() => setOpen(!open)}
         className="fixed bottom-4 right-4 z-[100] flex max-w-[min(100vw-2rem,320px)] items-center gap-2.5 rounded-full bg-primary py-2 pl-1.5 pr-4 text-white shadow-lg shadow-primary/40 hover:bg-primary-dark transition"
         aria-expanded={open}
-        aria-label={`Открыть чат: ${site.chat.fabLabel}`}
+        aria-label={`Open chat: ${site.chat.fabLabel}`}
       >
         <ChatAvatar size="lg" ring="white" />
         <span className="text-left text-xs font-semibold leading-snug sm:text-sm">

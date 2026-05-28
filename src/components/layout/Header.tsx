@@ -15,7 +15,7 @@ export function Header() {
           <span className="hidden text-[10px] text-white/60 sm:block">{site.tagline}</span>
         </a>
 
-        <nav className="hidden flex-1 justify-center lg:flex" aria-label="Основное меню">
+        <nav className="hidden flex-1 justify-center lg:flex" aria-label="Main menu">
           <ul className="flex gap-6 text-sm font-medium text-white/85">
             {site.nav.map((item) => (
               <li key={item.href}>
@@ -34,7 +34,7 @@ export function Header() {
           <Button
             variant="primary"
             className="hidden sm:inline-flex text-xs md:text-sm"
-            onClick={() => openWithMessage('Хочу провести диагностику ВЭД')}
+            onClick={() => openWithMessage('I want an operational assessment')}
           >
             {site.hero.ctaPrimary}
           </Button>
@@ -42,7 +42,7 @@ export function Header() {
             type="button"
             className="lg:hidden text-white p-2"
             aria-expanded={menuOpen}
-            aria-label="Меню"
+            aria-label="Menu"
             onClick={() => setMenuOpen(!menuOpen)}
           >
             <span className="block h-0.5 w-6 bg-white mb-1" />
@@ -53,7 +53,7 @@ export function Header() {
       </div>
 
       {menuOpen && (
-        <nav className="border-t border-white/10 px-4 py-4 lg:hidden" aria-label="Мобильное меню">
+        <nav className="border-t border-white/10 px-4 py-4 lg:hidden" aria-label="Mobile menu">
           <ul className="flex flex-col gap-3 text-white/90">
             {site.nav.map((item) => (
               <li key={item.href}>

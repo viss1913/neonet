@@ -19,24 +19,24 @@ export function FinalCtaSection() {
             const name = String(fd.get('name') || '').trim();
             openWithMessage(
               name
-                ? `Заявка с сайта. Имя: ${name}. Телефон: ${fd.get('phone')}. Запрос: ${fd.get('message') || 'диагностика ВЭД'}`
-                : 'Хочу провести диагностику ВЭД',
+                ? `Website request. Name: ${name}. Phone: ${fd.get('phone')}. Request: ${fd.get('message') || 'initial strategic assessment'}`
+                : 'I want an operational assessment',
             );
           }}
         >
           <input
             name="name"
             type="text"
-            placeholder="Ваше имя"
+            placeholder="Your name"
             className="rounded-lg border border-white/20 bg-white/10 px-4 py-2.5 text-white placeholder:text-white/40"
           />
           <input
             name="phone"
             type="tel"
-            placeholder="Телефон"
+            placeholder="Phone"
             className="rounded-lg border border-white/20 bg-white/10 px-4 py-2.5 text-white placeholder:text-white/40"
           />
-          <input name="message" type="hidden" value="диагностика ВЭД" />
+          <input name="message" type="hidden" value="initial strategic assessment" />
           <Button type="submit">{site.hero.ctaPrimary}</Button>
         </form>
         <div className="mt-6 flex justify-center gap-4 text-sm">
