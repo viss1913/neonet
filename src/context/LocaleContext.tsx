@@ -17,15 +17,20 @@ export function LocaleProvider({ children }: { children: ReactNode }) {
     return getSiteLanguage();
   });
 
+  // Keep the site config proxy in sync before children render.
+  setSiteLanguage(lang);
+
   useEffect(() => {
-    setSiteLanguage(lang);
     localStorage.setItem(STORAGE_KEY, lang);
   }, [lang]);
 
   const value = useMemo(
     () => ({
       lang,
-      setLang: setLangState,
+      setLang: (nextLang: Lang) => {
+        setSiteLanguage(nextLang);
+        setLangState(nextLang);
+      },
     }),
     [lang],
   );

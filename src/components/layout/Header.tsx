@@ -14,7 +14,7 @@ export function Header() {
       <div className="mx-auto flex max-w-6xl items-center gap-3 px-4 py-3 md:px-6">
         <a href="#" className="flex shrink-0 flex-col">
           <span className="text-lg font-bold tracking-wide text-white">{site.name}</span>
-          <span className="hidden text-[10px] text-white/60 xl:block">{site.tagline}</span>
+          <span className="hidden max-w-[280px] text-[10px] leading-tight text-white/60 xl:block">{site.tagline}</span>
         </a>
 
         <nav className="hidden flex-1 justify-center lg:flex" aria-label={site.ui.mainMenuAria}>
