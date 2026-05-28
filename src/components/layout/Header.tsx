@@ -31,7 +31,6 @@ export function Header() {
 
         <div className="ml-auto flex items-center gap-3">
           <div className="hidden items-center gap-1 rounded-lg border border-white/20 p-1 sm:flex">
-            <span className="px-1 text-[10px] text-white/60">{site.ui.languageLabel}</span>
             <button
               type="button"
               onClick={() => setLang('ru')}

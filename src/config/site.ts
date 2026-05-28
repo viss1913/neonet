@@ -452,7 +452,7 @@ const siteByLang: Record<Lang, SiteConfig> = {
   },
 };
 
-let currentLang: Lang = 'en';
+let currentLang: Lang = 'ru';
 
 export function setSiteLanguage(lang: Lang) {
   currentLang = lang;
