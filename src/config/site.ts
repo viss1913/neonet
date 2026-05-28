@@ -331,7 +331,7 @@ const siteByLang: Record<Lang, SiteConfig> = {
       { label: 'Архитектура', href: '#architecture' },
       { label: 'Риски', href: '#risks' },
       { label: 'Процесс', href: '#process' },
-      { label: 'О компании', href: '#about' },
+      { label: 'О нас', href: '#about' },
       { label: 'Контакты', href: '#contacts' },
     ],
     hero: {
@@ -419,6 +419,16 @@ const siteByLang: Record<Lang, SiteConfig> = {
       hiddenMessage: 'первичная стратегическая оценка',
       requestWithNameTemplate: 'Заявка с сайта. Имя: {{name}}. Телефон: {{phone}}. Запрос: {{message}}',
       requestFallback: 'Хочу провести диагностику ВЭД',
+    },
+    legal: {
+      ...common.legal,
+      rights: 'Все права защищены.',
+      requisitesTitle: 'Реквизиты',
+      addressTitle: 'Адрес',
+      phonesTitle: 'Телефон',
+      emailsTitle: 'Email',
+      registryTitle: 'ИНН, КПП, ОГРН',
+      directorTitle: 'Генеральный директор',
     },
     chat: {
       name: 'Коля',
