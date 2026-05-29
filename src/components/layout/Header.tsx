@@ -1,12 +1,10 @@
 import { useState } from 'react';
 import { site } from '../../config/site';
-import { useChatUI } from '../../context/ChatContext';
 import { useLocale } from '../../context/LocaleContext';
 import { Button } from '../ui/Button';
 
 export function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const { openWithMessage } = useChatUI();
   const { lang, setLang } = useLocale();
 
   return (
@@ -49,11 +47,7 @@ export function Header() {
           <a href={site.phoneHref} className="hidden whitespace-nowrap text-sm font-medium text-white/90 xl:block">
             {site.phone}
           </a>
-          <Button
-            variant="primary"
-            className="hidden md:inline-flex text-xs lg:text-sm"
-            onClick={() => openWithMessage(site.finalCta.requestFallback)}
-          >
+          <Button variant="primary" className="hidden md:inline-flex text-xs lg:text-sm" href="#contacts">
             {site.hero.ctaPrimary}
           </Button>
           <button
@@ -91,6 +85,11 @@ export function Header() {
             </li>
             <li>
               <a href={site.phoneHref}>{site.phone}</a>
+            </li>
+            <li>
+              <a href="#contacts" onClick={() => setMenuOpen(false)} className="font-semibold text-primary">
+                {site.hero.ctaPrimary}
+              </a>
             </li>
           </ul>
         </nav>

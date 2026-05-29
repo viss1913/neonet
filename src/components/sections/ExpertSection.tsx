@@ -1,12 +1,10 @@
 import { useState } from 'react';
 import { site } from '../../config/site';
-import { useChatUI } from '../../context/ChatContext';
 import { Section, SectionTitle } from '../ui/Section';
 import { Button } from '../ui/Button';
 
 export function ExpertSection() {
   const [photoOk, setPhotoOk] = useState(true);
-  const { openWithMessage } = useChatUI();
 
   return (
     <Section id="about" tone="muted">
@@ -57,7 +55,7 @@ export function ExpertSection() {
                 Telegram
               </a>
             </p>
-            <Button className="mt-4" onClick={() => openWithMessage(site.finalCta.requestFallback)}>
+            <Button className="mt-4" href="#contacts">
               {site.expert.contactCta}
             </Button>
           </div>

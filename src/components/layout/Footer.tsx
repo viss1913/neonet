@@ -32,7 +32,6 @@ export function Footer() {
         <div className="text-sm text-white/80">
           <p>{site.legal.copyright}</p>
           <p className="text-white/60">{site.legal.rights}</p>
-          <p className="mt-4 text-xs text-white/40">{site.chat.disclaimer}</p>
         </div>
       </div>
       <div className="mx-auto mt-8 max-w-6xl border-t border-white/10 px-4 pt-6 md:px-6">

@@ -1,11 +1,8 @@
 import { site } from '../../config/site';
-import { useChatUI } from '../../context/ChatContext';
 import { Section, SectionTitle } from '../ui/Section';
 import { Button } from '../ui/Button';
 
 export function FinalCtaSection() {
-  const { openWithMessage } = useChatUI();
-
   return (
     <Section id="contacts" tone="dark" className="!bg-gradient-to-br from-[#0a1a2f] to-slate-brand">
       <div className="mx-auto max-w-2xl text-center">
@@ -19,14 +16,14 @@ export function FinalCtaSection() {
             const name = String(fd.get('name') || '').trim();
             const phone = String(fd.get('phone') || '');
             const message = String(fd.get('message') || site.finalCta.hiddenMessage);
-            openWithMessage(
-              name
-                ? site.finalCta.requestWithNameTemplate
-                    .replace('{{name}}', name)
-                    .replace('{{phone}}', phone)
-                    .replace('{{message}}', message)
-                : site.finalCta.requestFallback,
-            );
+            const body = name
+              ? site.finalCta.requestWithNameTemplate
+                  .replace('{{name}}', name)
+                  .replace('{{phone}}', phone)
+                  .replace('{{message}}', message)
+              : site.finalCta.requestFallback;
+            const subject = encodeURIComponent(site.finalCta.mailtoSubject);
+            window.location.href = `mailto:${site.email}?subject=${subject}&body=${encodeURIComponent(body)}`;
           }}
         >
           <input

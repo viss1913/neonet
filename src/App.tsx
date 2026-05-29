@@ -1,4 +1,3 @@
-import { ChatProvider } from './context/ChatContext';
 import { Header } from './components/layout/Header';
 import { Footer } from './components/layout/Footer';
 import { SeoHead } from './components/SeoHead';
@@ -10,7 +9,6 @@ import { ArchitectureSection } from './components/sections/ArchitectureSection';
 import { ProcessSection } from './components/sections/ProcessSection';
 import { ExpertSection } from './components/sections/ExpertSection';
 import { FinalCtaSection } from './components/sections/FinalCtaSection';
-import { AiChatWidget } from './components/chat/AiChatWidget';
 import { LocaleProvider, useLocale } from './context/LocaleContext';
 
 function LocalizedShell() {
@@ -31,7 +29,6 @@ function LocalizedShell() {
         <FinalCtaSection />
       </main>
       <Footer />
-      <AiChatWidget />
     </div>
   );
 }
@@ -39,9 +36,7 @@ function LocalizedShell() {
 export default function App() {
   return (
     <LocaleProvider>
-      <ChatProvider>
-        <LocalizedShell />
-      </ChatProvider>
+      <LocalizedShell />
     </LocaleProvider>
   );
 }

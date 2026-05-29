@@ -82,25 +82,11 @@ type SiteConfig = {
     hiddenMessage: string;
     requestWithNameTemplate: string;
     requestFallback: string;
+    mailtoSubject: string;
   };
   social: {
     telegram: string;
     whatsapp: string;
-  };
-  chat: {
-    name: string;
-    title: string;
-    fabLabel: string;
-    subtitle: string;
-    typingLabel: string;
-    greeting: string;
-    disclaimer: string;
-    avatar: string;
-    quickReplies: string[];
-    dialogAria: string;
-    closeAria: string;
-    inputPlaceholder: string;
-    openAria: string;
   };
   legal: {
     copyright: string;
@@ -278,26 +264,7 @@ const siteByLang: Record<Lang, SiteConfig> = {
       hiddenMessage: 'initial strategic assessment',
       requestWithNameTemplate: 'Website request. Name: {{name}}. Phone: {{phone}}. Request: {{message}}',
       requestFallback: 'I want an operational assessment',
-    },
-    chat: {
-      name: 'Kolya',
-      title: 'Trade Consultant - AI Kolya',
-      fabLabel: 'Trade Consultant - AI Kolya',
-      subtitle: 'NeoNet · online',
-      typingLabel: 'Kolya is typing',
-      greeting:
-        'Hello! I am Kolya, NeoNet AI consultant for import, export, and market access infrastructure. How can I help you?',
-      disclaimer: 'Responses are informational and do not constitute legal advice.',
-      avatar: '/images/ai/kolya.webp',
-      quickReplies: [
-        'I want an operational assessment',
-        'Turnkey import / export support',
-        'Cross-border payment risk review',
-      ],
-      dialogAria: 'Chat with {{name}}',
-      closeAria: 'Close chat',
-      inputPlaceholder: 'Message for {{name}}...',
-      openAria: 'Open chat: {{fabLabel}}',
+      mailtoSubject: 'NeoNet website inquiry',
     },
     ui: {
       mainMenuAria: 'Main menu',
@@ -419,6 +386,7 @@ const siteByLang: Record<Lang, SiteConfig> = {
       hiddenMessage: 'первичная стратегическая оценка',
       requestWithNameTemplate: 'Заявка с сайта. Имя: {{name}}. Телефон: {{phone}}. Запрос: {{message}}',
       requestFallback: 'Хочу провести диагностику ВЭД',
+      mailtoSubject: 'Заявка с сайта NeoNet',
     },
     legal: {
       ...common.legal,
@@ -429,26 +397,6 @@ const siteByLang: Record<Lang, SiteConfig> = {
       emailsTitle: 'Email',
       registryTitle: 'ИНН, КПП, ОГРН',
       directorTitle: 'Генеральный директор',
-    },
-    chat: {
-      name: 'Коля',
-      title: 'Консультант по ВЭД - ИИ Коля',
-      fabLabel: 'Консультант по ВЭД - ИИ Коля',
-      subtitle: 'NeoNet · онлайн',
-      typingLabel: 'Коля печатает',
-      greeting:
-        'Привет! Я Коля, AI-консультант NeoNet по импорту, экспорту и инфраструктуре ВЭД. Чем могу помочь?',
-      disclaimer: 'Ответы носят информационный характер и не являются юридической консультацией.',
-      avatar: '/images/ai/kolya.webp',
-      quickReplies: [
-        'Хочу провести диагностику ВЭД',
-        'Импорт / экспорт под ключ',
-        'Риски трансграничных платежей',
-      ],
-      dialogAria: 'Чат с {{name}}',
-      closeAria: 'Закрыть чат',
-      inputPlaceholder: 'Сообщение для {{name}}...',
-      openAria: 'Открыть чат: {{fabLabel}}',
     },
     ui: {
       mainMenuAria: 'Основное меню',

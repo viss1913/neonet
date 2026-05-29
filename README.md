@@ -1,12 +1,12 @@
 # NeoNet — лендинг
 
-React + Vite + Tailwind. ИИ-консультант ВЭД через serverless `/api/chat`.
+React + Vite + Tailwind. Статический лендинг с переключением RU/EN.
 
 ## Локально
 
 ```bash
 npm install
-copy .env.example .env   # заполни PARTNER_RUNTIME_API_KEY
+copy .env.example .env
 npm run dev
 ```
 
@@ -18,8 +18,6 @@ http://localhost:5173
 2. Framework: Vite, Root Directory: `.` (корень репо)
 3. Environment Variables:
    - `VITE_SITE_URL` — прод-домен
-   - `PARTNER_RUNTIME_API_URL` — `https://aiasol-production-c345.up.railway.app`
-   - `PARTNER_RUNTIME_API_KEY` — ключ бота
 
 ## Контент
 
